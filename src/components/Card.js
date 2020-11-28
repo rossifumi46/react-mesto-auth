@@ -1,7 +1,6 @@
 const Card = (props) => {
 
   function handleClick() {
-    console.log('li')
     props.onCardClick(props.card);
   }  
 

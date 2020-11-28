@@ -28,7 +28,7 @@ const Main = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  })
+  }, [])
 
   return (
     <main className="content">
@@ -54,6 +54,7 @@ const Main = (props) => {
           return <Card
             card={item}
             onCardClick={props.onCardClick}
+            key={item._id}
           />
         })}
       </section>
