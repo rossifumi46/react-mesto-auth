@@ -8,7 +8,7 @@ const PopupWithForm = (props) => {
           <img src={closeIcon} alt="кнопка закрыть" className="popup__close-img"/>
         </button>
         <h2 className="popup__form-title">{props.title}</h2>
-        <form className="popup__form" name={`${props.name}Form`} novalidate>
+        <form onSubmit={props.onSubmit} className="popup__form" name={`${props.name}Form`} novalidate>
           {props.children}
           <button type="submit" className="popup__button">{props.button}</button>  
         </form>

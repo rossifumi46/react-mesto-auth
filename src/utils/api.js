@@ -22,7 +22,7 @@ class Api {
   }
 
   getProfile() {
-    return this._makeRequest('/users/me ');
+    return this._makeRequest('/users/me');
   }
 
   getInitialCards() {
@@ -42,14 +42,11 @@ class Api {
   }
  
   // POST https://mesto.nomoreparties.co/v1/cohortId/cards
-  createCard(name, link) {
+  createCard(card) {
     return this._makeRequest(
       '/cards',
       'POST',
-      JSON.stringify({
-        name,
-        link
-      }))
+      JSON.stringify(card))
   }
 
   // DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
@@ -59,13 +56,13 @@ class Api {
 
   // DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId 
   // PUT https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId 
-  like(cardId,method) {
-    return this._makeRequest('/cards/likes/' + cardId, method);
+  like(cardId, isLiked) {
+    return this._makeRequest('/cards/likes/' + cardId, isLiked ? 'DELETE' : 'PUT');
   }
 
   // PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar 
-  updateAvatar(avatarUrl) {
-    return this._makeRequest('/users/me/avatar', 'PATCH', JSON.stringify({avatar: avatarUrl}));
+  updateAvatar(avatar) {
+    return this._makeRequest('/users/me/avatar', 'PATCH', JSON.stringify(avatar));
   }
 
 }

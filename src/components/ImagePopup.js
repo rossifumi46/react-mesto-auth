@@ -8,8 +8,8 @@ const ImagePopup = (props) => {
         <button type="button" className="popup__close" onClick={props.onClose}>
           <img src={closeIcon} alt="кнопка закрыть" className="popup__close-img"/>
         </button>
-        <img className="full-img" style={{content: `url(${props.card ? props.card.link : ''})`}}/>
-        <h3 className="img-title"></h3>
+        <img className="full-img" alt="картинка" style={{content: `url(${props.card ? props.card.link : ''})`}}/>
+        {/* <h3 className="img-title"></h3> */}
       </div>
     </section>
   );
