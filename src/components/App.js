@@ -49,7 +49,10 @@ function App() {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         // Обновляем стейт
         setCards(newCards);
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+      });;
   }
 
   function handleCardDelete(card) {
@@ -110,15 +113,13 @@ function App() {
 
   const handleUpdateAvatar = (avatar) => {
     api.updateAvatar(avatar)
-    .then((result) => {
-      const newCurrentUser = Object.assign({}, currentUser);
-      newCurrentUser.avatar = result.avatar;
-      setCurrentUser(newCurrentUser);
-      closeAllPopups();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((result) => {
+        setCurrentUser(result);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
