@@ -42,9 +42,9 @@ const EditProfilePopup = (props) => {
       onClose={props.onClose}
       onSubmit={handleSubmit}
     >
-      <input id="name" value={name} onChange={handleNameChange} required type="text" className="popup__input popup__input_type_name" placeholder="Имя" name="name" minlength="2" maxlength="40"/>
+      <input id="name" value={name} onChange={handleNameChange} required type="text" className="popup__input popup__input_type_name" placeholder="Имя" name="name" minLength="2" maxLength="40"/>
       <span className='popup__error' id='name-error'></span>
-      <input id="about" value={description} onChange={handleDescriptionChange} required type="text" className="popup__input popup__input_type_job" placeholder="Род деятельности" name="job" minlength="2" maxlength="200"/>
+      <input id="about" value={description} onChange={handleDescriptionChange} required type="text" className="popup__input popup__input_type_job" placeholder="Род деятельности" name="job" minLength="2" maxLength="200"/>
       <span className='popup__error' id='about-error'></span>
     </PopupWithForm>
   );

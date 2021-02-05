@@ -65,6 +65,13 @@ class Api {
     return this._makeRequest('/users/me/avatar', 'PATCH', JSON.stringify(avatar));
   }
 
+  sigup({email, password}) {
+    return this._makeRequest('/signup', 'POST', JSON.stringify({email, password}));
+  }
+
+  login({email, password}) {
+    return this._makeRequest('/signin', 'POST', JSON.stringify({email, password}));
+  }
 }
 
 const api = new Api({
