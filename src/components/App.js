@@ -12,7 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import InfoToolTip from './InfoToolTip';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import authApi from '../utils/authApi';
 import { useLocation, useHistory, withRouter } from 'react-router-dom'
@@ -27,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
   const [account, setAccount] = useState({})
-  const [loggedIn, setLoggedIn] =  useState(true);
+  const [loggedIn, setLoggedIn] =  useState(false);
   const [infoTip, setInfoTip] = useState({show: false});
   
   const signin = { route: '/signup', name: "Регистрация" };
@@ -188,6 +188,7 @@ function App() {
   const handleSignout = () => {
     localStorage.removeItem('token');
     setAccount({});
+    setLoggedIn(false);
     history.push('/signin');
   }
 
@@ -207,12 +208,12 @@ function App() {
         <Header link={ location.pathname === '/signin' ?  signin : signup} handleSignout={handleSignout} account={account}/>
         <Switch>
           <Route path="/signup">
-            <Register handleSignup={handleSignup}/>
+            {!loggedIn ? <Register handleSignup={handleSignup} /> : <Redirect to="/" />}
           </Route>
           <Route path="/signin">
-            <Login handleLogin={handleLogin}/>
+            {!loggedIn ? <Login handleLogin={handleLogin} /> : <Redirect to="/" />}
           </Route>
-          <ProtectedRoute 
+          {<ProtectedRoute 
             component={Main}
             path="/"
             loggedIn={loggedIn}
@@ -223,26 +224,26 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}  
-          />
-          <Footer/>
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/> 
-          <PopupWithForm
-            title='Вы уверены ?'
-            name='submit'
-            button='Да'
-          >
-          </PopupWithForm>
-          <ImagePopup
-            card={selectedCard}
-            onClose={closeAllPopups}
-          />
+          />}
         </Switch>
+        {loggedIn && <Footer/>}
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/> 
+        <PopupWithForm
+          title='Вы уверены ?'
+          name='submit'
+          button='Да'
+        >
+        </PopupWithForm>
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+        />
         {<InfoToolTip infoTip={infoTip} onClose={handleCloseInfoTip}/>}
       </div>
     </CurrentUserContext.Provider>
